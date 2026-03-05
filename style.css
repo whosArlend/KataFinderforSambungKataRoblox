@@ -82,8 +82,8 @@ body {
     grid-template-columns: 1.1fr 1.4fr;
     grid-template-rows: auto 1fr;
     grid-template-areas:
-      "keyboard search"
-      "keyboard results";
+      "keyboard keyboard"
+      "search results";
   }
 
   .keyboard-section {
@@ -115,8 +115,10 @@ body {
 
 @media (min-width: 768px) {
   .keyboard-section {
-    border-right: 1px solid #e5e7eb;
-    padding-right: 16px;
+    border-right: 0;
+    padding-right: 0;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 16px;
   }
 }
 
@@ -158,6 +160,24 @@ body {
   box-shadow:
     0 6px 16px rgba(37, 99, 235, 0.35),
     0 0 0 1px rgba(37, 99, 235, 0.45);
+}
+
+.alphabet-button.alphabet-clear {
+  grid-column: 1 / -1;
+  border-radius: 12px;
+  padding: 8px 0;
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #9a3412;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.alphabet-button.alphabet-clear:hover {
+  background: #ffedd5;
+  border-color: #fdba74;
+  color: #7c2d12;
+  box-shadow: 0 0 0 1px rgba(234, 88, 12, 0.14);
 }
 
 .search-section {

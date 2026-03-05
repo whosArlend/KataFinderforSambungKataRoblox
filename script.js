@@ -17,6 +17,19 @@ const resultsContainer = document.getElementById("results");
 const resultCountLabel = document.getElementById("result-count");
 const toast = document.getElementById("toast");
 
+function syncAlphabetActive(value) {
+  const v = String(value || "");
+  if (v.length === 1) {
+    const lower = v.toLowerCase();
+    clearActiveAlphabet();
+    const btn = document.querySelector(`.alphabet-button[data-letter="${lower}"]`);
+    if (btn) btn.classList.add("active");
+    return;
+  }
+
+  clearActiveAlphabet();
+}
+
 function showToast(message) {
   if (!toast) return;
   toast.textContent = message;
@@ -81,21 +94,28 @@ function buildAlphabetButtons() {
     btn.dataset.letter = letter.toLowerCase();
 
     btn.addEventListener("click", () => {
-      const current = btn.dataset.letter || "";
-      // Set input ke huruf yang diklik
-      searchInput.value = current;
-
-      // Tandai tombol aktif
-      document
-        .querySelectorAll(".alphabet-button.active")
-        .forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      runSearch(current);
+      const nextValue = `${searchInput.value || ""}${btn.dataset.letter || ""}`;
+      searchInput.value = nextValue;
+      syncAlphabetActive(nextValue);
+      runSearch(nextValue);
+      searchInput.focus();
     });
 
     alphabetContainer.appendChild(btn);
   });
+
+  const clearBtn = document.createElement("button");
+  clearBtn.type = "button";
+  clearBtn.textContent = "CLEAR";
+  clearBtn.className = "alphabet-button alphabet-clear";
+  clearBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    syncAlphabetActive("");
+    resultCountLabel.textContent = "Menunggu input...";
+    resultsContainer.innerHTML = "";
+    searchInput.focus();
+  });
+  alphabetContainer.appendChild(clearBtn);
 }
 
 function clearActiveAlphabet() {
@@ -178,19 +198,7 @@ function setupSearchInput() {
   searchInput.addEventListener("input", (e) => {
     const value = e.target.value || "";
 
-    if (value.length === 0) {
-      clearActiveAlphabet();
-    } else if (value.length === 1) {
-      // Sinkronkan tombol alfabet saat hanya 1 huruf
-      const lower = value.toLowerCase();
-      clearActiveAlphabet();
-      const btn = document.querySelector(
-        `.alphabet-button[data-letter="${lower}"]`
-      );
-      if (btn) btn.classList.add("active");
-    } else {
-      clearActiveAlphabet();
-    }
+    syncAlphabetActive(value);
 
     runSearch(value);
   });
