@@ -1,9 +1,9 @@
 const MAX_RESULTS = 200;
 const KBBI_DIR = "kbbi";
 
-const datasetCache = new Map(); // letter -> string[]
-const datasetLoadPromises = new Map(); // letter -> Promise<string[]>
-const datasetLoadErrors = new Map(); // letter -> Error
+const datasetCache = new Map();
+const datasetLoadPromises = new Map();
+const datasetLoadErrors = new Map();
 let latestSearchId = 0;
 
 const alphabetContainer = document.getElementById("alphabet-buttons");
@@ -231,7 +231,6 @@ function setupSearchInput() {
   });
 
   searchInput.addEventListener("focus", () => {
-    // Tidak memuat dataset saat startup (lazy load saat ada input)
   });
 }
 
