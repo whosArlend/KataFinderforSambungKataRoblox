@@ -7,6 +7,16 @@ This is a static, client-side project: just HTML, CSS, and JavaScript.
 
 ---
 
+## Live Demo
+
+Try the app here:
+
+👉 https://whosArlend.github.io/KataFinder
+
+Open it in your browser and start searching for Indonesian words instantly.
+
+---
+
 ## 1. Project Title
 
 **KataFinder – Indonesian Word Finder for Sambung Kata**
